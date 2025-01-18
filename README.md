@@ -8,9 +8,9 @@ This project is a Laravel-based application developed as part of the Coalition L
 ## Features
 
 - Project and Task management
-- Docker integration with Laravel Sail
-- User-friendly command-line interface with Laravel Prompts
-- Interactive REPL with Laravel Tinker
+- Create, edit, delete, and reorder tasks with drag-and-drop.
+- Associate tasks with projects and filter by project.
+- Backend powered by Laravel, MySQL with Docker support.
 
 ## Requirements
 
@@ -51,7 +51,7 @@ OR
 docker-compose up
 ```
 
-5. Migrate the database:
+5. Run the migrations:
 
 ```bash
 ./vendor/bin/sail artisan migrate
@@ -59,6 +59,16 @@ docker-compose up
 OR
  ```bash
 sail artisan migrate
+```
+
+6. Seed the database:
+
+```bash
+./vendor/bin/sail artisan db:seed
+```
+OR
+```bash
+sail artisan db:seed
 ```
 
 ### Accessing the Application
