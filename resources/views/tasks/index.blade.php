@@ -34,26 +34,34 @@
 
     <!-- Task List -->
     <div class="bg-white shadow rounded-lg p-6">
-        <h2 class="text-xl font-semibold mb-4">All Tasks for {{$project->name}}</h2>
-        <ul id="task-list" class="divide-y divide-gray-200">
-            @foreach ($tasks as $task)
-                <li data-id="{{ $task->id }}" class="flex justify-between py-2">
-                    <div>
-                        <span class="font-medium text-gray-800">{{ $task->name }}</span>
-                        <span class="text-sm text-gray-500">(Priority: {{ $task->priority }})</span>
-                    </div>
-                    <div class="flex space-x-4">
-                        <a href="{{ route('tasks.edit', $task) }}"
-                           class="text-blue-500 hover:text-blue-700">Edit</a>
-                        <form action="{{ route('tasks.destroy', $task) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
-                        </form>
-                    </div>
-                </li>
-            @endforeach
-        </ul>
+        @if($projects->isEmpty())
+            <h2 class="text-xl font-semibold mb-4 text-center">No Projects Available</h2>
+            <p class="text-center text-gray-500">Please create a project first.</p>
+        @elseif($tasks->isEmpty())
+            <h2 class="text-xl font-semibold mb-4 text-center">No Tasks Available</h2>
+            <p class="text-center text-gray-500">No tasks found for the selected project.</p>
+        @else
+            <h2 class="text-xl font-semibold mb-4">All Tasks for {{$project->name}}</h2>
+            <ul id="task-list" class="divide-y divide-gray-200">
+                @foreach ($tasks as $task)
+                    <li data-id="{{ $task->id }}" class="flex justify-between py-2">
+                        <div>
+                            <span class="font-medium text-gray-800">{{ $task->name }}</span>
+                            <span class="text-sm text-gray-500">(Priority: {{ $task->priority }})</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="{{ route('tasks.edit', $task) }}"
+                               class="text-blue-500 hover:text-blue-700">Edit</a>
+                            <form action="{{ route('tasks.destroy', $task) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
     </div>
 
     <!-- Form to Create a New Task -->

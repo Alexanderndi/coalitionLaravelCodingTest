@@ -11,7 +11,17 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $projects = Project::all();
-        $selectedProjectId = $request->input('project_id', $projects->first()->id); // Default to first project
+
+        // Check if there are any projects
+        if ($projects->isEmpty()) {
+            return view('tasks.index', [
+                'projects' => $projects,
+                'tasks' => collect(),
+                'selectedProjectId' => null
+            ]);
+        }
+
+        $selectedProjectId = $request->input('project_id', $projects->first()->id);
         $tasks = Task::where('project_id', $selectedProjectId)->orderBy('priority')->get();
 
         return view('tasks.index', compact('projects', 'tasks', 'selectedProjectId'));
