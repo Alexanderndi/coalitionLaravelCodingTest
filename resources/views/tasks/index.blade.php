@@ -43,7 +43,7 @@
                         <span class="text-sm text-gray-500">(Priority: {{ $task->priority }})</span>
                     </div>
                     <div class="flex space-x-4">
-                        <a href="{{ route('tasks.update', $task) }}"
+                        <a href="{{ route('tasks.edit', $task) }}"
                            class="text-blue-500 hover:text-blue-700">Edit</a>
                         <form action="{{ route('tasks.destroy', $task) }}" method="POST">
                             @csrf
@@ -87,6 +87,7 @@
             </button>
         </form>
     </div>
+
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>

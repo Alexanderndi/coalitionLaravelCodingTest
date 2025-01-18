@@ -21,9 +21,6 @@
                 <li class="flex justify-between py-2">
                     {{ $project->name }}
                     <div class="flex space-x-4">
-                        <a href="{{ route('projects.edit', $project->id) }}"
-                           class="text-blue-500 hover:text-blue-700">Edit</a>
-
                         <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')

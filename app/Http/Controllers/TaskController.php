@@ -35,15 +35,35 @@ class TaskController extends Controller
         return redirect()->back()->with('success', 'Task created successfully.');
     }
 
+    // Show the form to edit a task
+    public function edit(Task $task)
+    {
+        // Fetch all projects for the project selection dropdown
+        $projects = Project::all();
+
+        // Return the view with the task and projects
+        return view('tasks.edit', compact('task', 'projects'));
+    }
+
+    // Handle the update of the task
     public function update(Request $request, Task $task)
     {
+        // Validate the incoming request
         $request->validate([
             'name' => 'required|string|max:255',
+            'priority' => 'required|integer',
+            'project_id' => 'required|exists:projects,id',
         ]);
 
-        $task->update(['name' => $request->name]);
+        // Update the task with new data
+        $task->update([
+            'name' => $request->name,
+            'priority' => $request->priority,
+            'project_id' => $request->project_id,
+        ]);
 
-        return redirect()->back();
+        // Redirect back to the task index with a success message
+        return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
 
     public function destroy(Task $task)
